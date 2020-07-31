@@ -1,5 +1,5 @@
 ---
-title: "C2 Metric"
+title: ""
 output: html_document
 ---
 
@@ -22,7 +22,19 @@ all_conjs =readRDS("~/centauri/conjunction_analysis/RDSfiles/all_conjs")
 mcma_objs = readRDS("~/centauri/conjunction_analysis/RDSfiles/mcma_objs")
 
 ```
-<font size = "5">The following metric calculates how coupled a derelict is within the cluster. The conjunctions of each derelict are scored by dividing the percentage of conjunctions due to the specific derelict, divided by that conjunctions smallest miss distance, as shown in the figure below. The average score of the all the derelicts conjunctions are then used to rank them against the other derelicts in the cluster. </font>
+**<font size = "7">Couple and Close $(C^2)$ Risk Metric:</font>** 
+
+<font size = "5">The $C^2$ Risk Metric characterizes how "coupled" a derelict is with other members of its cluster.
+
+1. Calculate number of conjunctions between all combinations of two objects.
+2. Calculate percentage of total conjunctions for each object (see figure)
+      a. Number of conjunctions between the two objects divided by total                     conjunctions for the row object
+3. Determine the closest recorded conjunction between all combinations of two          objects.
+4. Calculate conjunction score by dividing the percentage from step 2 (as a whole      number, i.e. 5% = 5, not 0.05) by the closest conjunction (step 3) for each         object’s possible conjunctions.
+     a. Conjunction Score = $\frac{\% ~ of~ conjunctions~ *~ 100}{closest~ conjunction~ (km)}$
+     b. Higher score is more "coupled"
+5. Calculate object ranking score by taking the average of the conjunction scores for all possible conjunctions with that object (including 0’s if that conjunction has not actually occurred).
+</font>
 
 ![](describingfig.PNG)
 ```{r warning = FALSE}
